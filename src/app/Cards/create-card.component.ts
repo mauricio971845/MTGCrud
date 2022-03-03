@@ -97,6 +97,8 @@ export class CreateCardComponent implements OnInit{
     this.editingCard.manaCost = formValues.manaCost,
     this.editingCard.multiverseId = formValues.multiverseId
 
+    console.log(this.editingCard);
+
     if (this.editingCard.id)
     {
       console.log(this.editingCard);
@@ -110,19 +112,21 @@ export class CreateCardComponent implements OnInit{
     }
 
     this.router.navigate(['/Sets']);
+
   }
 
   setManaCost(value:string){
     let grayNumber: number = 0;
-
     if (this.manaCostStr)
     {
       if (value == "1")
       {
+
         if (Number(this.manaCostStr.charAt(1))>0 && Number(this.manaCostStr.charAt(2))>=0)
         {
           grayNumber = parseInt(this.manaCostStr.substr(1,2));
           this.manaCostStr = "{"+(grayNumber+1)+"}"+ this.manaCostStr.substr(4,this.manaCostStr.length);
+          console.log('Hello')
         }
         else if (Number(this.manaCostStr.charAt(1))>0)
         {
@@ -137,6 +141,9 @@ export class CreateCardComponent implements OnInit{
     {this.manaCostStr = "{"+value+"}";}
 
     this.manaCostService.manaCost$.emit(this.manaCostStr);
+
+
+    //console.log(this.manaCostStr);
   }
   cancel(){
     this.router.navigate(['Sets']);
