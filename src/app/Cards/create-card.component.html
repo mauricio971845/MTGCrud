@@ -1,0 +1,112 @@
+<div class="container-fluid pt-4 ps-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h3>{{cardHeader}}</h3>
+          <hr>
+          <form [formGroup] = "newCardForm" autocomplete="off" (ngSubmit)="saveCard(newCardForm.value)">
+            <div class="form-group" [ngClass]="{'error' : !validateField('cardName')}">
+              <label for="cardName">Card name:</label>
+              <em class="text-danger float-end" *ngIf="!validateField('cardName')">Required</em>
+              <input formControlName="cardName" id="cardName" type="text" class="form-control" placeholder="Card Name..." />
+            </div>
+            <div class="form-group" [ngClass]="{'error' : !validateField('rarity')}">
+              <label for="rarity">Rarity:</label>
+              <em class="text-danger float-end" *ngIf="!validateField('rarity')">Required</em>
+              <select formControlName="rarity" required id="set" class="form-control" >
+                <option value="">Select rarity...</option>
+                <option value="Common">Common</option>
+                <option value="Uncommon">Uncommon</option>
+                <option value="Rare">Rare</option>
+              </select>
+            </div>
+            <div class="form-group" [ngClass]="{'error' : !validateField('set')}">
+              <label for="set">Set:</label>
+              <em class="text-danger float-end" *ngIf="!validateField('set')">Required</em>
+              <select formControlName="set" required id="set" class="form-control" >
+                <option value="">Select type...</option>
+                <option *ngFor="let item of Sets" [value]="item.setName">{{item.setName}}</option>
+              </select>
+            </div>
+            <div class="form-group" [ngClass]="{'error' : !validateField('manaCost')}">
+              <label for="manaCost">Mana cost:</label>
+              <em class="text-danger float-end" *ngIf="!validateField('manaCost')">Required</em>
+              <div class="row">
+                <div class="col-7">
+                  <input formControlName="manaCost" id="manaCost" type="hidden" [ngModel]="manaCostStr" class="form-control" placeholder="Mana Cost..." />
+                  <mana-cost [manaCostStr]="manaCostStr"></mana-cost>
+                </div>
+                <div class="col-5">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/1.png" (click)="setManaCost('1')" alt=""> </div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/X.png" (click)="setManaCost('X')"alt=""></div>
+                      <div class="col-10"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/White.png" (click)="setManaCost('W')" alt=""> </div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/Black.png" (click)="setManaCost('B')" alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/Blue.png"  (click)="setManaCost('U')" alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/Green.png" (click)="setManaCost('G')" alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/Red.png"   (click)="setManaCost('R')" alt=""></div>
+                      <div class="col-7"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/WhiteBlack.png" (click)="setManaCost('W/B')" alt=""> </div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/WhiteBlue.png"  (click)="setManaCost('W/U')" alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/BlackGreen.png" (click)="setManaCost('B/G')" alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/BlackRed.png"   (click)="setManaCost('B/R')" alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/BlueBlack.png"  (click)="setManaCost('U/B')" alt=""></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/BlueRed.png"    (click)="setManaCost('U/R')" alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/GreenBlue.png"  (click)="setManaCost('G/U')" alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/GreenWhite.png" (click)="setManaCost('G/W')" alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/RedGreen.png"   (click)="setManaCost('R/G')" alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/RedWhite.png"   (click)="setManaCost('R/W')" alt=""></div>
+                      <div class="col-2"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/2White.png" (click)="setManaCost('2W')" alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/2Black.png" (click)="setManaCost('2B')" alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/2Blue.png"  (click)="setManaCost('2U')"alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/2Green.png" (click)="setManaCost('2G')" alt=""></div>
+                      <div class="col-1"><img src="/assets/images/ColorSymbols/2Red.png"   (click)="setManaCost('2R')" alt=""></div>
+                      <div class="col-2"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12"><button type="button" (click)="clearManaCost()" class="btn btn-light btn-sm btn-block">Clear</button></div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="form-group" [ngClass]="{'error' : !validateField('multiverseId')}">
+              <label for="multiverseId">Multiverse Id:</label>
+              <em class="text-danger float-end" *ngIf="!validateField('multiverseId') && newCardForm.controls.multiverseId.errors.required">Required</em>
+              <em class="text-danger float-end" *ngIf="!validateField('multiverseId') && newCardForm.controls.multiverseId.errors.pattern">Must be a number</em>
+              <input formControlName="multiverseId" id="multiverseId" type="text" class="form-control" placeholder="Multiverse Id..." />
+            </div>
+            <div class="mt-2">
+              <span><button type="submit" class="btn btn-success" [disabled] = "newCardForm.invalid">Save</button></span>
+              <span class="ms-1"><button type="button" (click)="cancel()" class="btn btn-secondary">Cancel</button></span>
+            </div>
+
+            <!--
+            <span (mouseenter)="mouseOverSaveBtn=true" (mouseleave)="mouseOverSaveBtn=false">
+              <button type="submit" class="btn btn-success" [disabled]="newSetForm.invalid">Save</button>
+            </span>
+
+            <span class="ms-1"><button type="button" (click)="cancel()" class="btn btn-secondary">Cancel</button></span>
+            -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

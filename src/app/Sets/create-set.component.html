@@ -1,0 +1,72 @@
+<div class="container-fluid pt-4 ps-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h3>{{setHeader}}</h3>
+          <hr>
+          <form #newSetForm="ngForm" (ngSubmit)="saveSet(newSetForm.value)" autocomplete="off" >
+            <div class="form-group" >
+              <label for="setName">Set name:</label>
+              <em *ngIf="(newSetForm.controls.setName?.invalid && newSetForm.controls.setName?.touched) || (mouseOverSaveBtn && newSetForm.invalid)" class="text-danger float-end">Required</em>
+              <input [(ngModel)]= "EditingSet.setName" name="setName" required id="setName" type="text" class="form-control" placeholder="Set Name..." />
+            </div>
+            <div class="form-group" >
+              <label for="code">Code:</label>
+              <em *ngIf="(newSetForm.controls.code?.invalid && newSetForm.controls.code?.touched) || (mouseOverSaveBtn && newSetForm.invalid)" class="text-danger float-end">Required</em>
+              <input [(ngModel)] = "EditingSet.code" name="code" required id="code" type="text" class="form-control" placeholder="Code..." />
+            </div>
+            <div class="form-group" >
+              <label for="setType">Set type:</label>
+              <em *ngIf="(newSetForm.controls.setType?.invalid && newSetForm.controls.setType?.touched) || (mouseOverSaveBtn && newSetForm.invalid)" class="text-danger float-end">Required</em>
+              <select [(ngModel)] = "EditingSet.setType" name="setType" required id="setType" class="form-control">
+                <option value="">Select type...</option>
+                <option value="archenemy">archenemy</option>
+                <option value="box">box</option>
+                <option value="commander">commander</option>
+                <option value="conspiracy">conspiracy</option>
+                <option value="core">core</option>
+                <option value="duel deck">duel deck</option>
+                <option value="expansion">expansion</option>
+                <option value="from the vault">from the vault</option>
+                <option value="masterpiece">masterpiece</option>
+                <option value="masters">masters</option>
+                <option value="planechase">planechase</option>
+                <option value="premium deck">premium deck</option>
+                <option value="promo">promo</option>
+                <option value="reprint">reprint</option>
+                <option value="starter">starter</option>
+                <option value="un">un</option>
+                <option value="vanguard">vanguard</option>
+              </select>
+            </div>
+            <div class="form-group" >
+              <label for="releasedDate">Released date:</label>
+              <em *ngIf="(newSetForm.controls.releasedDate?.invalid && newSetForm.controls.releasedDate?.touched) || (mouseOverSaveBtn && newSetForm.invalid)" class="text-danger float-end">Required</em>
+              <input [(ngModel)] = "EditingSet.releasedDate" name="releasedDate" required id="releasedDate" type="releasedDate" class="form-control"placeholder="format (mm/dd/yyyy)..." />
+            </div>
+            <div class="form-group" >
+              <label for="blockName">Block name:</label>
+              <input [(ngModel)] = "EditingSet.blockName" name="blockName" id="blockName" type="text" class="form-control" placeholder="Block name..." />
+            </div>
+            <div class="form-group mb-2" >
+              <label for="icon">Icon file:</label>
+              <div class="row">
+                <div class="col-9">
+                  <input [(ngModel)] = "EditingSet.symbol" name="symbol" id="symbol" type="text" class="form-control" placeholder="Select a png file..." disabled = true [value]="iconName"/>
+                </div>
+                <div class="col-3">
+                  <button type ="button" (click)="importData()" class="btn btn-primary mb-2">Browse</button>
+                </div>
+              </div>
+            </div>
+            <span (mouseenter)="mouseOverSaveBtn=true" (mouseleave)="mouseOverSaveBtn=false">
+              <button type="submit" class="btn btn-success" [disabled]="newSetForm.invalid">Save</button>
+            </span>
+            <span class="ms-1"><button type="button" (click)="cancel()" class="btn btn-secondary">Cancel</button></span>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
