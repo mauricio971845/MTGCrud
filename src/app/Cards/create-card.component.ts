@@ -34,7 +34,7 @@ export class CreateCardComponent implements OnInit{
   manaCost: FormControl;
   multiverseId: FormControl;
 
-  constructor(private setService:SetService, private router:Router, private manaCostService:ManaCostService,
+  constructor(public setService:SetService, private router:Router, private manaCostService:ManaCostService,
               private cardService:CardService, private route:ActivatedRoute){}
 
   ngOnInit(){
