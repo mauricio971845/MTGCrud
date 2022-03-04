@@ -1,7 +1,7 @@
-import { style } from "@angular/animations";
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CardService } from "../shared/card.service";
+
 
 @Component({
 selector: 'nav-bar',
@@ -20,14 +20,8 @@ export class NavBarComponent{
   searchTerm: string = "";
   constructor(private cardService:CardService, private router:Router, private route:ActivatedRoute){}
 
-
-    searchCards(formValues){
-      console.log(this.searchTerm);
-      console.log(this.route.component.toString)
-      this.router.navigate(['Cards/',this.searchTerm]);
-
+    searchCards(){
+      if (this.searchTerm)
+         this.router.navigateByUrl('Cards/'+this.searchTerm);
     }
-
-
-
 }

@@ -39,15 +39,21 @@ export class CardsComponent implements OnChanges{
   constructor(private cardService: CardService, private route:ActivatedRoute, private router:Router){}
 
   ngOnChanges(){
-    console.log(this.searchTerm + ' changed')
-
   }
 
   ngOnInit(){
-    if (this.setName)
-      this.getCardsbySet()
-    else if (this.searchTerm)
-      this.getCardsbyName()
+
+    this.route.params.subscribe(params=>{
+      if (params.searchTerm)
+      {
+          this.searchTerm = params.searchTerm;
+          console.log('hey ' + this.searchTerm );
+          this.getCardsbyName();
+      }else if (params.setName){
+          this.setName = params.setName;
+          this.getCardsbySet();
+      }
+    })
   }
 
   getCardsbySet(){
@@ -56,19 +62,20 @@ export class CardsComponent implements OnChanges{
       CardsSetList.forEach(elemento => {
         this.Cards.push(elemento)
       })
-      console.table(this.Cards);
+      //console.table(this.Cards);
     })
   }
 
   getCardsbyName(){
-    console.log("here");
     this.cardService.getCardsByName(this.searchTerm)
     .subscribe(CardsSetList => {
+      this.Cards = [];
       CardsSetList.forEach(elemento => {
         this.Cards.push(elemento)
       })
       console.log(this.Cards);
     })
+
   }
 
   editCard(id:number){
